@@ -1,12 +1,14 @@
 package hiber;
 
 import hiber.config.AppConfig;
+import hiber.model.Car;
 import hiber.model.User;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class MainApp {
    public static void main(String[] args) throws SQLException {
@@ -15,20 +17,38 @@ public class MainApp {
 
       UserService userService = context.getBean(UserService.class);
 
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
-      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
-      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
-      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
+//      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
+//      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
+//      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
+//      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
+      User user1 = new User("Jon", "Malkovitch", "jon@mail.ru");
+      Car car = new Car("Jeep", 123);
+      user1.setCar(car);
+      User user2 = new User("Jon2", "Malkovitch2", "jon2@mail.ru");
+      Car car2 = new Car("Jeep2", 1234);
+      user2.setCar(car2);
+      User user3 = new User("Jon3", "Malkovitch3", "jon3@mail.ru");
+      Car car3 = new Car("Jeep3", 12345);
+      user3.setCar(car3);
+      userService.add(user1);
+      userService.add(user2);
+      userService.add(user3);
 
-      List<User> users = userService.listUsers();
-      for (User user : users) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
-         System.out.println();
-      }
 
+//      List<User> users = userService.listUsers();
+//      for (User user : users) {
+//         System.out.println("Id = "+user.getId());
+//         System.out.println("First Name = "+user.getFirstName());
+//         System.out.println("Last Name = "+user.getLastName());
+//         System.out.println("Email = "+user.getEmail());
+//         System.out.println("CarModel = " +user.getCar().getModel());
+//      }
+      User expUser = userService.getUserByCarModelAndSeries("Jeep2", 1234);
+      System.out.println("Id = "+expUser.getId());
+      System.out.println("First Name = "+expUser.getFirstName());
+      System.out.println("Last Name = "+expUser.getLastName());
+      System.out.println("Email = "+expUser.getEmail());
+      System.out.println("CarModel = " +expUser.getCar().getModel());
       context.close();
    }
 }
