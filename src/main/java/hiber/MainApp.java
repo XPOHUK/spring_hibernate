@@ -30,12 +30,14 @@ public class MainApp {
       userService.add(user2);
       userService.add(user3);
 
-      User expUser = userService.getUserByCarModelAndSeries("Jeep2", 1234);
-      System.out.println("Id = "+expUser.getId());
-      System.out.println("First Name = "+expUser.getFirstName());
-      System.out.println("Last Name = "+expUser.getLastName());
-      System.out.println("Email = "+expUser.getEmail());
-      System.out.println("CarModel = " +expUser.getCar().getModel());
-      context.close();
+      List<User> expUser = userService.getUserByCarModelAndSeries("Jeep2", 1234);
+      for (User user: expUser) {
+         System.out.println("Id = " + user.getId());
+         System.out.println("First Name = " + user.getFirstName());
+         System.out.println("Last Name = " + user.getLastName());
+         System.out.println("Email = " + user.getEmail());
+         System.out.println("CarModel = " + user.getCar().getModel());
+         context.close();
+      }
    }
 }
