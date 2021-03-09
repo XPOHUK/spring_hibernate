@@ -12,7 +12,7 @@ public class Car {
     @Column(name = "car_id")
     private Long id;
 
-    String model;
+    private String model;
     private int series;
 
     public Car(){}
